@@ -90,11 +90,16 @@ crime_data_All_DF["Hour_Bin"] = pd.cut(crime_data_All_DF["Hour"], bins, labels=g
 crime_data_All_DF.head(2)
 
 
+
+
 # In[11]:
 
 
 crime_data_All_DF = crime_data_All_DF.sort_values(['Year','Month', 'Day'], ascending=[False, True,True])
 crime_data_All_DF.head(2)
+
+crime_data_All_DF["Resolved"] = np.where(crime_data_All_DF["Resolution"]=='NONE', "Unresolved","Resolved")
+
 
 
 # In[12]:
@@ -423,4 +428,81 @@ fig.set_size_inches(16, 4)
 plt.savefig ("heatmap_time_2018.png")
 ax = sns.heatmap(df_h3, ax=ax, cmap= sns.cm.rocket_r)
 plt.show()
+
+# In[110]:
+
+
+##Getting 2016 unresolved crimes in series
+district_2016 = crime_data_2016_DF.groupby(by = ['District',"Resolved"])
+district_2016= district_2016.count()
+district_2016 = district_2016.drop(["Descript","Day Of Week","Date","Time","Resolution","Address","X","Y","Year","Day","Month","Hour","Hour_Bin"
+                   ],axis =1)
+district_2016_df=pd.DataFrame(district_2016)
+district_2016_df = district_2016_df.rename(columns={"Category":"Count"})
+district_2016_df = district_2016_df.reset_index()
+unresolved_2016 = district_2016_df.loc[district_2016_df["Resolved"] =="Unresolved","Count"]
+district_2016 = district_2016_df["District"].unique()
+##district_2017_df
+
+district_2017 = crime_data_2017_DF.groupby(by = ['District',"Resolved"])
+district_2017= district_2017.count()
+district_2017 = district_2017.drop(["Descript","Day Of Week","Date","Time","Resolution","Address","X","Y","Year","Day","Month","Hour","Hour_Bin"
+                   ],axis =1)
+district_2017_df=pd.DataFrame(district_2017)
+district_2017_df = district_2017_df.rename(columns={"Category":"Count"})
+district_2017_df = district_2017_df.reset_index()
+unresolved_2017 = district_2017_df.loc[district_2017_df["Resolved"] =="Unresolved","Count"]
+district_2017 = district_2017_df["District"].unique()
+
+
+# In[112]:
+
+
+##Getting 2015 unresolved crimes in series
+district_2015 = crime_data_2015_DF.groupby(by = ['District',"Resolved"])
+district_2015= district_2015.count()
+district_2015 = district_2015.drop(["Descript","Day Of Week","Date","Time","Resolution","Address","X","Y","Year","Day","Month","Hour","Hour_Bin"
+                   ],axis =1)
+district_2015_df=pd.DataFrame(district_2015)
+district_2015_df = district_2015_df.rename(columns={"Category":"Count"})
+district_2015_df = district_2015_df.reset_index()
+unresolved_2015 = district_2015_df.loc[district_2015_df["Resolved"] =="Unresolved","Count"]
+district_2015 = district_2015_df["District"].unique()
+
+
+# In[113]:
+
+
+##Getting 2014 unresolved crimes in series
+district_2014 = crime_data_2014_DF.groupby(by = ['District',"Resolved"])
+district_2014= district_2014.count()
+district_2014 = district_2014.drop(["Descript","Day Of Week","Date","Time","Resolution","Address","X","Y","Year","Day","Month","Hour","Hour_Bin"
+                   ],axis =1)
+district_2014_df=pd.DataFrame(district_2014)
+district_2014_df = district_2014_df.rename(columns={"Category":"Count"})
+district_2014_df = district_2014_df.reset_index()
+unresolved_2014 = district_2014_df.loc[district_2014_df["Resolved"] =="Unresolved","Count"]
+district_2014 = district_2014_df["District"].unique()
+
+
+# In[116]:
+
+
+## building the plot
+
+plt.figure(figsize=(15,5))
+## plotting 2016 Data
+data1 = plt.scatter(district_2016,unresolved_2016,
+                    marker= 'o',color='red',label ='2016 Unresolved',s=(unresolved_2016/100))
+data2 = plt.scatter(district_2017,unresolved_2017,marker='o',color='blue',label ='2017 Unresolved',s=(unresolved_2017/100))
+
+## plotting 2017 Data
+data3 = plt.scatter(district_2015,unresolved_2015,
+                    marker= 'o',color='yellow',label ='2015 Unresolved',s=(unresolved_2015/100))
+data4 = plt.scatter(district_2014,unresolved_2014,marker='o',color='green',label ='2014 Unresolved',s=(unresolved_2014/100))
+
+plt.legend(handles=[data1,data2,data3,data4],loc="best")
+plt.show()
+
+
 
