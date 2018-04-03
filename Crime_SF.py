@@ -427,3 +427,4 @@ plt.savefig ("heatmap_time_2018.png")
 ax = sns.heatmap(df_h3, ax=ax, cmap= sns.cm.rocket_r)
 plt.show()
 
+print("I am done")
