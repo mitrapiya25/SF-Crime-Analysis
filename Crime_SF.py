@@ -170,6 +170,7 @@ ax.set_yticklabels(row_labels_2016, minor=False)
 #rotate
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2016", fontsize=20, weight='bold')
+plt.colorbar(heatmap)
 plt.savefig ("Heat_map_2016.png")
 plt.show()
 
@@ -208,6 +209,7 @@ ax.set_yticklabels(row_labels_2017, minor=False)
 #rotate
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2017", fontsize=20, weight='bold')
+plt.colorbar(heatmap)
 plt.savefig ("Heat_map_2017.png")
 plt.show()
 
@@ -246,6 +248,7 @@ ax.set_yticklabels(row_labels_2018, minor=False)
 #rotate
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2018", fontsize=20, weight='bold')
+plt.colorbar(heatmap)
 plt.savefig ("Heat_map_2018.png")
 plt.show()
 
