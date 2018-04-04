@@ -485,6 +485,17 @@ unresolved_2014 = district_2014_df.loc[district_2014_df["Resolved"] =="Unresolve
 district_2014 = district_2014_df["District"].unique()
 
 
+district_2011 = crime_data_2011_DF.groupby(by = ['District',"Resolved"])
+district_2011= district_2011.count()
+district_2011 = district_2011.drop(["Descript","Day Of Week","Date","Time","Resolution","Address","X","Y","Year","Day","Month","Hour","Hour_Bin"
+                   ],axis =1)
+district_2011_df=pd.DataFrame(district_2011)
+district_2011_df = district_2011_df.rename(columns={"Category":"Count"})
+district_2011_df = district_2011_df.reset_index()
+unresolved_2011 = district_2011_df.loc[district_2014_df["Resolved"] =="Unresolved","Count"]
+district_2011 = district_2011_df["District"].unique()
+
+
 # In[116]:
 
 
@@ -501,7 +512,13 @@ data3 = plt.scatter(district_2015,unresolved_2015,
                     marker= 'o',color='yellow',label ='2015 Unresolved',s=(unresolved_2015/100))
 data4 = plt.scatter(district_2014,unresolved_2014,marker='o',color='green',label ='2014 Unresolved',s=(unresolved_2014/100))
 
-plt.legend(handles=[data1,data2,data3,data4],loc="best")
+data5 = plt.scatter(district_2011,unresolved_2011,marker='o',color='green',label ='2011 Unresolved',s=(unresolved_2011/100))
+
+plt.legend(handles=[data1,data2,data3,data4,data5],loc="best")
+plt.title("Unresolved Crimes by District over the Years",fontsize = 20)
+plt.xlabel("Districts",fontsize=15)
+plt.ylabel("Unresolved Crime Density",fontsize=15)
+plt.savefig("Unresolved Crimes.jpg")
 plt.show()
 
 
