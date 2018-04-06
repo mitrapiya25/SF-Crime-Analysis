@@ -3,7 +3,7 @@
 
 # # Importing required Dependencies for the code to work 
 
-# In[59]:
+# In[69]:
 
 
 # import dependencies
@@ -35,7 +35,7 @@ get_ipython().magic('matplotlib inline')
 #     Reading the CSV data file. 
 #     This file contains SF crime data from Jan'2011 - Feb'2018
 
-# In[60]:
+# In[70]:
 
 
 # Read input files 
@@ -46,7 +46,7 @@ crime_data_All_DF = crime_data_All_DF.sort_values(["Date"], ascending=False)
 crime_data_All_DF.head(2)
 
 
-# In[61]:
+# In[71]:
 
 
 #writing 'total crime by Date' to CSV file which can be used later
@@ -56,7 +56,7 @@ crime_monthly_df = pd.DataFrame(crime_df['Date'].value_counts())
 crime_monthly_df.to_csv("../data/Crime_2.csv")
 
 
-# In[62]:
+# In[72]:
 
 
 # some data exploration 
@@ -64,13 +64,13 @@ crime_monthly_df.to_csv("../data/Crime_2.csv")
 len(crime_data_All_DF)
 
 
-# In[63]:
+# In[73]:
 
 
 crime_data_All_DF.columns
 
 
-# In[64]:
+# In[74]:
 
 
 crime_data_All_DF = crime_data_All_DF.rename(columns={"IncidntNum":"ID",
@@ -84,7 +84,7 @@ crime_data_All_DF = crime_data_All_DF.rename(columns={"IncidntNum":"ID",
 crime_data_All_DF.columns
 
 
-# In[65]:
+# In[75]:
 
 
 #keep only the required columns 
@@ -94,7 +94,7 @@ crime_data_All_DF = crime_data_All_DF.loc[:,['Category', 'Descript', 'Day Of Wee
 crime_data_All_DF.head(2)
 
 
-# In[66]:
+# In[76]:
 
 
 crime_data_All_DF["Resolved"] = np.where(crime_data_All_DF["Resolution"]=='NONE', "Unresolved","Resolved")
@@ -112,7 +112,7 @@ crime_data_All_DF = crime_data_All_DF.sort_values(["Year"], ascending=False)
 crime_data_All_DF.head(2)
 
 
-# In[67]:
+# In[77]:
 
 
 bins = [0, 7, 14, 20, 23]
@@ -123,20 +123,20 @@ crime_data_All_DF["Hour_Bin"] = pd.cut(crime_data_All_DF["Hour"], bins, labels=g
 crime_data_All_DF.head(2)
 
 
-# In[68]:
+# In[78]:
 
 
 crime_data_All_DF = crime_data_All_DF.sort_values(['Year','Month', 'Day'], ascending=[False, True,True])
 crime_data_All_DF.head(2)
 
 
-# In[69]:
+# In[79]:
 
 
 crime_data_All_DF["Year"].value_counts()
 
 
-# In[70]:
+# In[80]:
 
 
 # slice the data for 2016,2017,2018 so that we can start plotting
@@ -163,7 +163,7 @@ crime_data_2018_DF = crime_data_All_DF.loc[crime_data_All_DF["Year"] == "2018",:
 
 # # Heatmap - Crimes by Category & District : 2016
 
-# In[71]:
+# In[81]:
 
 
 #2016 Heatmap for crimes 
@@ -200,14 +200,14 @@ ax.set_yticklabels(row_labels_2016, minor=False)
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2016", fontsize=20, weight='bold')
 plt.colorbar(heatmap)
-plt.savefig ("../plot/Heat_map_2016.png")
+plt.savefig ("../plot/01.Heat_map_2016.png")
 plt.show()
 
 
 
 # # Heatmap - Crimes by Category & District : 2017
 
-# In[72]:
+# In[82]:
 
 
 # # 2017 Heatmap
@@ -245,13 +245,13 @@ ax.set_yticklabels(row_labels_2017, minor=False)
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2017", fontsize=20, weight='bold')
 plt.colorbar(heatmap)
-plt.savefig ("../plot/Heat_map_2017.png")
+plt.savefig ("../plot/02.Heat_map_2017.png")
 plt.show()
 
 
 # # Heatmap - Crimes by Category & District : 2018
 
-# In[73]:
+# In[83]:
 
 
 # # 2018 Heatmap
@@ -289,14 +289,14 @@ ax.set_yticklabels(row_labels_2018, minor=False)
 plt.xticks(rotation=90)
 plt.title("Heatmap for Crimes in SF : 2018", fontsize=20, weight='bold')
 plt.colorbar(heatmap)
-plt.savefig ("../plot/Heat_map_2018.png")
+plt.savefig ("../plot/03.Heat_map_2018.png")
 plt.show()
 
 
 
 # # Bar Graph : Crimes by Category  - 2016
 
-# In[74]:
+# In[84]:
 
 
 #frequency count for Category
@@ -310,13 +310,13 @@ fig = Category_crimes_2016_df["Percentage"].plot(kind="bar", figsize = (20,10), 
 
 fig.set_title("Frequency of Crimes by Category - 2016", fontsize=15, weight = "bold")
 fig.set_ylabel("Percentage of Crimes", fontsize=12)
-plt.savefig('../plot/perc_crime_category_2016.png')
+plt.savefig('../plot/04.perc_crime_category_2016.png')
 plt.show()
 
 
 # # Bar Graph : Average crime for each day of the week - 2016
 
-# In[75]:
+# In[85]:
 
 
 #Average daily crime per category
@@ -337,13 +337,13 @@ ax.set_xlabel('')
 
 ax.set_title("Average Week day Crime - 2016", fontsize=20, weight='bold')
 ax.set_ylabel("Number of Crimes ", fontsize= 15)
-plt.savefig('../plot/avg_daily2016.png')
+plt.savefig('../plot/05.avg_daily2016.png')
 plt.show()
 
 
 # # Bar Graph : Crimes by Category - 2017
 
-# In[76]:
+# In[86]:
 
 
 # Percentage of crime per category
@@ -356,14 +356,14 @@ fig = Category_crimes_2017_df["Percentage"].plot(kind="bar", figsize = (20,10), 
 
 fig.set_title("Frequency of Crimes by Category - 2017", fontsize=15, weight = "bold")
 fig.set_ylabel("Percentage of Crimes", fontsize=12)
-plt.savefig('../plot/perc_crime_category_2017.png')
+plt.savefig('../plot/06.perc_crime_category_2017.png')
 plt.show()
 
 
 
 # # Bar Graph : Average crime for each day of the week - 2017
 
-# In[77]:
+# In[87]:
 
 
 # Average daily crime per category
@@ -384,13 +384,13 @@ ax.set_xlabel('')
 
 ax.set_title("Average Week Day Crime - 2017", fontsize=20, weight='bold')
 ax.set_ylabel("Number of Crimes ", fontsize= 15)
-plt.savefig('../plot/avg_daily2017.png')
+plt.savefig('../plot/07.avg_daily2017.png')
 plt.show()
 
 
 # # Bar Graph : Crimes by Category - 2018
 
-# In[78]:
+# In[88]:
 
 
 # Percentage of crime per category
@@ -398,20 +398,20 @@ plt.show()
 Category_crimes_2018_df = pd.DataFrame(crime_data_2018_DF.Category.value_counts())
 
 
-Category_crimes_2018_df["Percentage"] = Category_crimes_2018_df["Category"]/Category_crimes_2018_df["Category"].sum()
+Category_crimes_2018_df["Percentage"] = (Category_crimes_2018_df["Category"]/Category_crimes_2018_df["Category"].sum())*100
  
 fig = Category_crimes_2018_df["Percentage"].plot(kind="bar", figsize = (20,10), rot=75) 
 
 fig.set_title("Frequency of Crimes by Category - 2018", fontsize=15, weight = "bold")
 fig.set_ylabel("Percentage of Crimes", fontsize=12)
-plt.savefig('../plot/perc_crime_category_2018.png')
+plt.savefig('../plot/08.perc_crime_category_2018.png')
 plt.show()
 
 
 
 # # Bar Graph : Average crime for each day of the week - 2018
 
-# In[79]:
+# In[89]:
 
 
 # Average daily crime per category
@@ -433,13 +433,13 @@ ax.set_xlabel('')
 
 ax.set_title("Average Week Day Crime - 2018", fontsize=20, weight='bold')
 ax.set_ylabel("Number of Crimes ", fontsize= 15)
-plt.savefig('../plot/avg_daily2018.png')
+plt.savefig('../plot/09.avg_daily2018.png')
 plt.show()
 
 
 # # Heatmap - Crimes by District & Hour of the day : 2016
 
-# In[80]:
+# In[90]:
 
 
 # # Heatmap:  crime by District and time 2016
@@ -454,13 +454,13 @@ fig, ax = plt.subplots()
 fig.set_size_inches(16, 4)
 ax = sns.heatmap(df_h, ax=ax, cmap= sns.cm.rocket_r )
 plt.title('Heat Map : Crime by District and Hour of day - 2016', fontsize=20, weight='bold')
-plt.savefig ("../plot/heatmap_time_2016.png")
+plt.savefig ("../plot/10.heatmap_time_2016.png")
 plt.show()
 
 
 # # Heatmap - Crimes by District & Hour of the day : 2017
 
-# In[81]:
+# In[91]:
 
 
 df_gb2 = pd.DataFrame(crime_data_2017_DF.groupby(['District', 'Hour']).size())
@@ -471,13 +471,13 @@ fig, ax = plt.subplots()
 fig.set_size_inches(16, 4)
 ax = sns.heatmap(df_h2, ax=ax, cmap= sns.cm.rocket_r)
 plt.title('Heat Map : Crime by District and Hour of day - 2017', fontsize=20, weight='bold')
-plt.savefig ("../plot/heatmap_time_2017.png")
+plt.savefig ("../plot/11.heatmap_time_2017.png")
 plt.show()
 
 
 # # Heatmap - Crimes by District & Hour of the day : 2018
 
-# In[82]:
+# In[92]:
 
 
 df_gb3 = pd.DataFrame(crime_data_2018_DF.groupby(['District', 'Hour']).size())
@@ -487,14 +487,14 @@ df_h3 = df_gb3.pivot("District", "Hour", "Crimes")
 fig, ax = plt.subplots()
 fig.set_size_inches(16, 4)
 ax = sns.heatmap(df_h3, ax=ax, cmap= sns.cm.rocket_r)
-plt.savefig ("../plot/heatmap_time_2018.png")
+plt.savefig ("../plot/12.heatmap_time_2018.png")
 plt.title('Heat Map : Crime by District and Hour of day - 2018', fontsize=20, weight='bold')
 plt.show()
 
 
 # # Bubble plot - Unresolved Crimes by District over the Years
 
-# In[83]:
+# In[93]:
 
 
 ##Getting 2016 unresolved crimes in series
@@ -548,7 +548,7 @@ unresolved_2011 = district_2011_df.loc[district_2014_df["Resolved"] =="Unresolve
 district_2011 = district_2011_df["District"].unique()
 
 
-# In[84]:
+# In[94]:
 
 
 ## building the plot
@@ -556,26 +556,26 @@ district_2011 = district_2011_df["District"].unique()
 plt.figure(figsize=(15,5))
 ## plotting 2016 Data
 data1 = plt.scatter(district_2016,unresolved_2016,
-                    marker= 'o',color='red',label ='2016 Unresolved',s=(unresolved_2016/100))
-data2 = plt.scatter(district_2017,unresolved_2017,marker='o',color='blue',label ='2017 Unresolved',s=(unresolved_2017/100))
+                    marker= 'o',color='red',label ='2016',s=(unresolved_2016/100))
+data2 = plt.scatter(district_2017,unresolved_2017,marker='o',color='blue',label ='2017',s=(unresolved_2017/100))
 
 ## plotting 2017 Data
 data3 = plt.scatter(district_2015,unresolved_2015,
-                    marker= 'o',color='yellow',label ='2015 Unresolved',s=(unresolved_2015/100))
-data4 = plt.scatter(district_2014,unresolved_2014,marker='o',color='green',label ='2014 Unresolved',s=(unresolved_2014/100))
+                    marker= 'o',color='yellow',label ='2015',s=(unresolved_2015/100))
+data4 = plt.scatter(district_2014,unresolved_2014,marker='o',color='green',label ='2014',s=(unresolved_2014/100))
 
-data5 = plt.scatter(district_2011,unresolved_2011,marker='o',color='green',label ='2011 Unresolved',s=(unresolved_2011/100))
+data5 = plt.scatter(district_2011,unresolved_2011,marker='o',color='orange',label ='2011',s=(unresolved_2011/100))
 
 plt.legend(handles=[data1,data2,data3,data4,data5],loc="best")
 plt.title("Unresolved Crimes by District over the Years",fontsize = 20)
-plt.xlabel("Districts",fontsize=15)
-plt.ylabel("Unresolved Crime Density",fontsize=15)
-plt.savefig("../plot/Unresolved Crimes.jpg")
+#plt.xlabel("Districts",fontsize=15)
+plt.ylabel("Crime Density",fontsize=15)
+plt.savefig("../plot/13.Unresolved Crimes.jpg")
 plt.show()
 
 
 
-# In[85]:
+# In[95]:
 
 
 # Select 2011, 2015, 2016, 2017 and 2018
@@ -586,7 +586,7 @@ reduced_crime_data_df.head()
 
 # # Line Graph - Monthly Crime trend for the years - 2011, 2016,2016,2017
 
-# In[86]:
+# In[96]:
 
 
 crime_df = reduced_crime_data_df.groupby(['Year','Month'])
@@ -595,7 +595,7 @@ crime_monthly = crime_monthly_df.unstack(0)
 crime_monthly_2 = crime_monthly["Month"]
 
 
-# In[87]:
+# In[97]:
 
 
 #Creating the line chart
@@ -603,31 +603,31 @@ crime_monthly_2 = crime_monthly["Month"]
 #define x-axis
 x_axis = [1,2,3,4,5,6,7,8,9,10,11,12]
 x_limit = 13
-plt.figure(figsize=(15,10))
+plt.figure(figsize=(10,7))
 
 #Define each year
 
-year_2011 = plt.plot(x_axis, crime_monthly_2["2011"], marker="v", color="gray", ls="dashed", linewidth=1, alpha=1)
+fig, ax = plt.subplots()
 
-year_2015 = plt.plot(x_axis, crime_monthly_2["2015"], marker="o", color="red", ls="dashed", linewidth=1, alpha=1)
+ax.fill(x_axis, crime_monthly_2["2011"], color="gray", ls="dashed", linewidth=1, alpha=0.5)
 
-year_2016 = plt.plot(x_axis, crime_monthly_2["2016"], marker="^", color="blue", ls="dashed", linewidth=1, alpha=1)
+year_2016 = plt.plot(x_axis, crime_monthly_2["2016"], marker="^", color="salmon", ls="dashed", linewidth=1, alpha=1)
 
-year_2017 = plt.plot(x_axis, crime_monthly_2["2017"], marker="s", color="green", ls="dashed", linewidth=1, alpha=1)
+year_2017 = plt.plot(x_axis, crime_monthly_2["2017"], marker="s", color="orangered", ls="dashed", linewidth=1, alpha=1)
 
 
 #Axes limits
-plt.ylim(9000, 15000)
+plt.ylim(9500, 14000)
 plt.xlim(0, 13)
 
 #Axes and Chart Labels
-plt.title("Trends of Crime over the last 3 years v base year (2011)", fontsize=20, weight='bold')
-plt.ylabel("Volume of Crime", fontsize=14)
+plt.title("Trends of Crime over the last 3 years v base year (2011)", fontsize=8, weight='bold')
+plt.ylabel("Volume of Crime", fontsize=8)
 plt.xticks(1+np.arange(12), calendar.month_name[1:13], rotation=40)
 plt.grid(linestyle="dashed")
 
 # Save the figure
-plt.savefig('../plot/Trends of Crime over the last 3 years.png')
+plt.savefig('../plot/14.Trends of Crime over the last 2 years v base year (2011).png')
 
 #Chart Legend 
 plt.legend(bbox_to_anchor = (1,1), title = 'Years') 
@@ -635,9 +635,10 @@ plt.show()
 
 
 
+
 # # Monthly Crime trend for the years - 2011, 2016,2016,2017
 
-# In[88]:
+# In[98]:
 
 
 #Creating bar chart
@@ -670,7 +671,7 @@ plt.xticks(1+np.arange(12), calendar.month_name[1:13], rotation=40)
 plt.grid(linestyle="dashed")
 
 # Save the figure
-plt.savefig('../plot/Trends of Crime over the last 3 years_2.png')
+plt.savefig('../plot/15.Trends of Crime over the last 3 years_2.png')
 
 #Chart Legend 
 plt.legend(bbox_to_anchor = (1,1), title = 'Years') 
@@ -679,35 +680,157 @@ plt.show()
 
 # # Seasonal Plots
 
-# In[89]:
+# In[99]:
 
 
 series = Series.from_csv('../data/Crime_3.csv', header=0)
 result = seasonal_decompose(series, model='multiplicative', freq= 365)
-result.plot()
+#result.plot()
+#plt.show()
+
+
+# In[100]:
+
+
+observed_component = result.observed
+observed_component.shape
+plt.plot(observed_component, color="coral", ls="dashed", linewidth=0.5, alpha=1)
+
+plt.title("Observed Component", fontsize=16, weight='bold')
+plt.ylabel("observed values", fontsize=12)
+plt.savefig('../plot/16.Observed component_All years.png')
 plt.show()
 
 
-# In[90]:
+# In[101]:
+
+
+resid_component = result.resid
+resid_component.shape
+plt.plot(resid_component, color="coral", ls="dashed", linewidth=0.5, alpha=1)
+
+plt.title("Resid Component", fontsize=16, weight='bold')
+plt.ylabel("resid values", fontsize=12)
+plt.savefig('../plot/17.Resid component_All years.png')
+plt.show()
+
+
+# In[102]:
+
+
+trend_component = result.trend
+trend_component.shape
+plt.plot(trend_component, color="coral", ls="dashed", linewidth=0.5, alpha=1)
+
+plt.title("Trend Component", fontsize=16, weight='bold')
+plt.ylabel("trend values", fontsize=12)
+plt.savefig('../plot/18.Trend component_All years.png')
+plt.show()
+
+
+# In[103]:
+
+
+seasonal_component = result.seasonal
+seasonal_component.shape
+plt.plot(seasonal_component, color="coral", ls="dashed", linewidth=0.5, alpha=1)
+
+plt.title("Seasonal Component", fontsize=16, weight='bold')
+plt.ylabel("seasonal values", fontsize=12)
+plt.savefig('../plot/Seasonal component_All years.png')
+plt.show()
+seasonal_DF = pd.DataFrame(seasonal_component)
+seasonal_DF.to_csv("../data/seasonal.csv")
+seasonal_DF.keys()
+
+
+# In[104]:
+
+
+seasonal_file = "../data/seasonal.csv"
+seasonal_DF = pd.read_csv(seasonal_file)
+seasonal_DF.head(2)
+
+
+# In[105]:
+
+
+# Create a new columns for Year, Day and Month
+seasonal_DF["Day"] = seasonal_DF["Date"].str.rstrip('-').str.split('-').str[2]
+seasonal_DF["Month"] = seasonal_DF["Date"].str.rstrip('-').str.split('-').str[1]
+seasonal_DF["Year"] = seasonal_DF["Date"].str.rstrip('-').str.split('-').str[0]
+ 
+
+seasonal_DF = seasonal_DF.sort_values(["Year"], ascending=False)
+
+seasonal_DF.head(2)
+
+
+# In[106]:
+
+
+seasonal_df = seasonal_DF.groupby(['Year','Month'])
+seasonal_monthly_df = pd.DataFrame(seasonal_df["Crimes"].mean())
+seasonal_monthly = seasonal_monthly_df.unstack(0)
+seasonal_monthly.head(2)
+seasonal_monthly.columns
+seasonal_monthly['Crimes']["2011"]
+
+
+# In[107]:
+
+
+#Creating the line chart
+
+#define x-axis
+x_axis = [1,2,3,4,5,6,7,8,9,10,11,12]
+x_limit = 13
+plt.figure(figsize=(10,5))
+
+fig, ax = plt.subplots()
+ax.fill(x_axis, seasonal_monthly['Crimes']["2017"], color="orangered", ls="dashed", linewidth=1, alpha=0.5)
+
+
+#Axes limits
+plt.ylim(0.9, 1.1)
+plt.xlim(0, 13)
+
+#Axes and Chart Labels
+plt.title("Monthly Seasonality over the year", fontsize=14, weight='bold')
+plt.ylabel("seasonal values", fontsize=14)
+plt.xticks(1+np.arange(12), calendar.month_name[1:13], rotation=40)
+#plt.grid(linestyle="dashed")
+
+# Save the figure
+plt.savefig('../plot/19.Monthly Seasonality over the year.png')
+
+#Chart Legend 
+#plt.legend(bbox_to_anchor = (1,1), title = 'Years') 
+plt.show()
+
+
+
+
+# In[108]:
 
 
 #frequency count for Category
 Category_crimes_2011_df = pd.DataFrame(crime_data_2011_DF.Category.value_counts())
 
 
-Category_crimes_2011_df["Percentage"] = Category_crimes_2011_df["Category"]/Category_crimes_2011_df["Category"].sum()
+Category_crimes_2011_df["Percentage"] = (Category_crimes_2011_df["Category"]/Category_crimes_2011_df["Category"].sum())*100
 Category_crimes_2011_df
  
 fig = Category_crimes_2011_df["Percentage"].plot(kind="bar", figsize = (20,10), rot=75) 
 
 fig.set_title("Frequency of Crimes by Category - 2011", fontsize=15, weight = "bold")
 fig.set_ylabel("Percentage of Crimes", fontsize=12)
-plt.savefig('../plot/perc_crime_category_2011.png')
+plt.savefig('../plot/20.perc_crime_category_2011.png')
 plt.show()
 
 
 
-# In[91]:
+# In[109]:
 
 
 
@@ -729,46 +852,46 @@ ax.set_xlabel('')
 
 ax.set_title("Average Week Day Crime - 2011", fontsize=20, weight='bold')
 ax.set_ylabel("Number of Crimes ", fontsize= 15)
-plt.savefig('../plot/avg_daily2011.png')
+plt.savefig('../plot/21.avg_daily2011.png')
 plt.show()
 
 
-# In[92]:
+# In[110]:
 
 
 avg_daily_crime_2011_summary = crime_data_2011_DF["Day Of Week"].value_counts()/52
 avg_daily_crime_2011_summary
 
 
-# In[93]:
+# In[111]:
 
 
 avg_daily_crime_2017_summary = crime_data_2017_DF["Day Of Week"].value_counts()/52
 avg_daily_crime_2017_summary
 
 
-# In[94]:
+# In[112]:
 
 
 avg_daily_crime_2016_summary = crime_data_2016_DF["Day Of Week"].value_counts()/52
 avg_daily_crime_2016_summary
 
 We use a one sample T-test to determine whether our sample mean (observed average for the days of the week) is statistically significantly different to the population mean (expected average).
-# In[95]:
+# In[113]:
 
 
 avg_daily_crime_2011 = avg_daily_crime_2011_summary
 stats.ttest_1samp(avg_daily_crime_2011, 363.554)
 
 The p-value in this case is 0.9185, which is far less than the standard thresholds of 0.05 or 0.01, so we reject the null hypothesis and we can say there is a statistically significant difference between the daily average per day of the week and the general daily average.
-# In[96]:
+# In[114]:
 
 
 avg_daily_crime_2017 = avg_daily_crime_2017_summary
 stats.ttest_1samp(avg_daily_crime_2017, 422.463)
 
 The p-value in this case is 0.8556, which is Bigger than the standard thresholds of 0.05 or 0.01, so we accept the null hypothesis and we can say there isn't any statistically significant difference between the daily average per day of the week and the general daily average.
-# In[97]:
+# In[115]:
 
 
 avg_daily_crime_2016 = avg_daily_crime_2016_summary
@@ -777,7 +900,7 @@ stats.ttest_1samp(avg_daily_crime_2016, 412.249)
 # The p-value in this case is 0.7716, which is Bigger than the standard thresholds of 0.05 or 0.01, so we accept the null hypothesis and we can say there isn't any statistically significant difference between the daily average per day of the week and the general daily average.
 # # Geo-Plot : All crimes - 2017
 
-# In[98]:
+# In[116]:
 
 
 data = crime_data_2017_DF.loc[crime_data_2017_DF['Resolved'] == 'Resolved',['Category','X','Y']]
@@ -791,17 +914,17 @@ data.head()
 data = read_csv('../data/GraphData_2017.csv')
 
 
-# In[99]:
+# In[117]:
 
 
 geoplotlib.dot(data)
-geoplotlib.savefig('../plot/AllCrimes_2017')
+geoplotlib.savefig('../plot/22.AllCrimes_2017')
 #geoplotlib.show()
 
 
 # # Map plot for Unresolved Arson : 2017 vs. 2016 (using Folium)
 
-# In[100]:
+# In[118]:
 
 
 crime_data_2016_unresolvedArson_DF = crime_data_2016_DF.loc[
@@ -820,7 +943,7 @@ middle_lat = crime_data_2016_unresolvedArson_DF['Y'].median()
 middle_lon = crime_data_2016_unresolvedArson_DF['X'].median()
 
 
-# In[101]:
+# In[119]:
 
 
 m = folium.Map([middle_lat, middle_lon], zoom_start=12)
@@ -842,7 +965,7 @@ for _, row in crime_data_2016_unresolvedArson_DF.iterrows():
                                 number_of_sides=4,
                                ).add_to(m)
         
-m.save('../plot/Map_Plot_Unresolved_Arson_2016_2017.html')
+m.save('../plot/23.Map_Plot_Unresolved_Arson_2016_2017.html')
 
 m
 
@@ -850,7 +973,7 @@ m
 
 # # Map plot for Unresolved Vehile Theft : 2018 (using Folium)
 
-# In[102]:
+# In[120]:
 
 
 crime_data_2018_unresolvedVTheft_DF = crime_data_2018_DF.loc[
@@ -863,14 +986,14 @@ middle_lon = crime_data_2018_unresolvedVTheft_DF['X'].median()
 crime_data_2018_unresolvedVTheft_DF.head()
 
 
-# In[103]:
+# In[121]:
 
 
 neighborhoodarr_2018 = crime_data_2018_unresolvedVTheft_DF[['Y', 'X']].as_matrix()
 neighborhood_2018 = neighborhoodarr_2018.tolist()
 
 
-# In[104]:
+# In[122]:
 
 
 m = folium.Map([middle_lat, middle_lon], zoom_start=12)
@@ -887,7 +1010,7 @@ for _, row in crime_data_2018_unresolvedVTheft_DF.iterrows():
 m.add_children(plugins.HeatMap(neighborhood_2018, radius=10))
 #m.add_children(plugins.HeatMap(neighborhood_2017, radius=10))
 
-m.save('../plot/Heatmap_Unresolved_VehicleTheft_2018.html')
+m.save('../plot/24.Heatmap_Unresolved_VehicleTheft_2018.html')
 
 m
 
